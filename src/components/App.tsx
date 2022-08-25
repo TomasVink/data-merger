@@ -1,6 +1,5 @@
 import { AppBar, Box, CssBaseline, Toolbar, Typography } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { Container } from '@mui/system'
 import Converter from './Converter'
 
 const App = () => (
