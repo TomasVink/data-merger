@@ -10,11 +10,13 @@ import {
 import { DataGrid } from '@mui/x-data-grid'
 import fileReader from '../lib/fileReader'
 import { useEffect, useState } from 'react'
+import csvtojson from 'csvtojson'
 
 const Input = styled('input')({ display: 'none' })
 
 const CsvInput = ({ title, data, onChange }) => {
   const [delimiter, setDelimiter] = useState(',')
+  const [fileString, setFileString] = useState('')
 
   const onFileSelect = async ({
     target: {
@@ -22,10 +24,17 @@ const CsvInput = ({ title, data, onChange }) => {
     }
   }) => {
     const result = await fileReader(file, delimiter)
-    onChange(result)
+    setFileString(result)
   }
 
-  useEffect(() => onChange(), [delimiter])
+  useEffect(() => {
+    async function changeData () {
+      onChange(await csvtojson({ delimiter }).fromString(fileString))
+    }
+    if (fileString) {
+      changeData()
+    }
+  }, [fileString, delimiter, onChange])
 
   const inputId = `file-input-${title.replace(' ', '-').toLowerCase()}`
 

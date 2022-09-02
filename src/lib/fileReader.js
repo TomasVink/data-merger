@@ -1,5 +1,3 @@
-import csvtojson from 'csvtojson'
-
 const readFileAsync = file => {
   return new Promise((resolve, reject) => {
     let reader = new FileReader()
@@ -14,10 +12,9 @@ const readFileAsync = file => {
   })
 }
 
-const fileReader = async (file, delimiter = 'auto') => {
-  const csv = await readFileAsync(file)
-  const result = await csvtojson({ delimiter }).fromString(csv)
-  return result
+const fileReader = async file => {
+  const fileString = await readFileAsync(file)
+  return fileString
 }
 
 export default fileReader
