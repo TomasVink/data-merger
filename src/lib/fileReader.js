@@ -14,9 +14,9 @@ const readFileAsync = file => {
   })
 }
 
-const fileReader = async (file, fn) => {
+const fileReader = async (file, delimiter = 'auto') => {
   const csv = await readFileAsync(file)
-  const result = await csvtojson().fromString(csv)
+  const result = await csvtojson({ delimiter }).fromString(csv)
   return result
 }
 
