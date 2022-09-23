@@ -32,6 +32,15 @@ const Converter = () => {
       getResult(source, destination, rules, sourceField, destinationField)
     )
 
+  const reset = () => {
+    setSource()
+    setDestination()
+    setRules([])
+    setSourceField('')
+    setDestinationField('')
+    setResult()
+  }
+
   return (
     <Stack spacing={2} sx={{ my: 12 }}>
       <Paper sx={{ p: { xs: 2, md: 3 } }}>
@@ -136,6 +145,9 @@ const Converter = () => {
           onClick={generateResult}
         >
           {result ? 'Refresh result' : 'Generate result'}
+        </Button>
+        <Button sx={{ m: 1 }} variant='contained' onClick={reset}>
+          Reset
         </Button>
         <Button
           disabled={!result}

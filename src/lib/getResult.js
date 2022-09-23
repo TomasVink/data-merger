@@ -18,17 +18,18 @@ const getResult = (
   const data = []
 
   destination.forEach((destinationItem, i) => {
-    let matchedItem = source.find(sourceItem => {
-      let matched = true
-      rules.forEach(
-        rule =>
-          (matched =
-            sourceItem[rule[0]].toString() ===
-            destinationItem[rule[1]].toString())
-      )
-      if (matched) matches++
-      return matched
+    const matchedItem = source.find(sourceItem => {
+      return rules
+        .map(
+          rule =>
+            sourceItem[rule[0]].toString().toLowerCase() ===
+            destinationItem[rule[1]].toString().toLowerCase()
+        )
+        .every(v => v)
     })
+
+    if (matchedItem) matches++
+
     data.push({
       [destinationField]: matchedItem ? matchedItem[sourceField] : '',
       ...destinationItem
